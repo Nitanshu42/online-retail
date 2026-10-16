@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retail Intelligence Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Data Warehousing & Data Mining</p>
+          <h1>Retail Intelligence Dashboard</h1>
+        </div>
+        <div class="tag">WEKA + Web Dashboard</div>
+      </header>
+
+      <section class="card controls-panel">
+        <div class="controls-header">
+          <h2>Quick filters</h2>
+          <div class="controls-actions">
+            <button type="button" id="resetFilters" class="secondary-btn">Reset</button>
+            <button type="button" id="applyFilters" class="primary-btn">Apply</button>
+          </div>
+        </div>
+        <div class="controls-grid">
+          <label>
+            <span>Country</span>
+            <select id="countryFilter"></select>
+          </label>
+          <label>
+            <span>Year</span>
+            <select id="yearFilter"></select>
+          </label>
+          <label>
+            <span>Min Support</span>
+            <input id="minSupport" type="number" min="0.001" max="0.5" step="0.01" value="0.02" />
+          </label>
+          <label>
+            <span>Min Confidence</span>
+            <input id="minConfidence" type="number" min="0.1" max="1" step="0.05" value="0.5" />
+          </label>
+        </div>
+      </section>
+
+      <section class="summary-grid" id="summaryGrid">
+        <div class="card stat-card">
+          <p>Total Orders</p>
+          <h3 id="totalOrders">0</h3>
+        </div>
+        <div class="card stat-card accent">
+          <p>Total Revenue</p>
+          <h3 id="totalRevenue">$0</h3>
+        </div>
+        <div class="card stat-card">
+          <p>Customers</p>
+          <h3 id="totalCustomers">0</h3>
+        </div>
+        <div class="card stat-card">
+          <p>Repeat Customers</p>
+          <h3 id="repeatCustomers">0</h3>
+        </div>
+      </section>
+
+      <section class="panel-grid">
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Monthly Transaction Trend</h2>
+          </div>
+          <canvas id="monthlyChart"></canvas>
+        </div>
+
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Yearly Transaction Trend</h2>
+          </div>
+          <canvas id="yearlyChart"></canvas>
+        </div>
+      </section>
+
+      <section class="panel-grid">
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Weekly Purchase Pattern</h2>
+          </div>
+          <canvas id="weeklyChart"></canvas>
+        </div>
+
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Customer Behavior</h2>
+          </div>
+          <div class="filter-box">
+            <label for="customerSelect">Select Customer</label>
+            <select id="customerSelect"></select>
+          </div>
+          <div class="customer-info" id="customerDetails"></div>
+        </div>
+      </section>
+
+      <section class="panel-grid large-panel-grid">
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Top Products of Selected Customer</h2>
+          </div>
+          <canvas id="customerProductChart"></canvas>
+        </div>
+
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Association Rule Mining</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Antecedent</th>
+                  <th>Consequent</th>
+                  <th>Support</th>
+                  <th>Confidence</th>
+                  <th>Lift</th>
+                </tr>
+              </thead>
+              <tbody id="rulesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
